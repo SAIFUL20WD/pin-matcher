@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pin Generator</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6">
+                <div class="pin-generator half-width">
+                    <input id="generated-pin" class="form-control text-center" type="text">
+                    <button class="generate-btn" onclick="pinGenerator()">Generate Pin</button>>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="input-section half-width">
+                    <input id="input-pin" class="form-control text-center" type="text">
+                    <div class="numbers">
+                        <div class="calc-body">
+                            <div class="calc-button-row">
+                              <div class="button" onclick="pinInput.value += '7' ">7</div>
+                              <div class="button" onclick="pinInput.value += '8' ">8</div>
+                              <div class="button" onclick="pinInput.value += '9' ">9</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button" onclick="pinInput.value += '4' ">4</div>
+                              <div class="button" onclick="pinInput.value += '5' ">5</div>
+                              <div class="button" onclick="pinInput.value += '6' ">6</div>
+                            </div>
+                            <div class="calc-button-row">
+                              <div class="button" onclick="pinInput.value += '1' ">1</div>
+                              <div class="button" onclick="pinInput.value += '2' ">2</div>
+                              <div class="button" onclick="pinInput.value += '3' ">3</div>
+                            </div>
+                            <div class="calc-button-row">
+                                <div class="button" onclick="pinInput.value = pinInput.value.toString().slice(0, -1)"><</div>
+                                <div class="button" onclick="pinInput.value += '0' ">0</div>
+                                <div class="button" onclick="pinInput.value = '' ">C</div>
+                            </div>
+                            <div>
+                                <button type="submit" id="submit" class="submit-btn">Submit</button>
+                                <p class="action-left">3 try left</p>
+                            </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="notify-section">
+            <p id="pin-wrong" class="notify">❌ Pin Didn't Match, Please try again</p>
+            <p id="pin-right" class="notify">✅ Pin Matched... Secret door is opening for you</p>
+        </div>
+    </div>
+    <script>
+        // Random Pin Generator
+        function pinGenerator(){
+            let randomNumber = Math.floor(Math.random() * 9000) + 999;
+            document.getElementById("generated-pin").value = randomNumber;
+        }
+
+        //Input Value Holder
+        const pinInput = document.getElementById("input-pin");
+        const generatedPin = document.getElementById('generated-pin');
+
+        //Pin Validator 
+        document.getElementById("submit").addEventListener("click", function(){
+            if (pinInput.value == generatedPin.value){
+                document.getElementById("pin-right").style.display = "block";
+                document.getElementById("pin-wrong").style.display = "none";
+            }
+            else{
+                document.getElementById("pin-wrong").style.display = "block";
+                pinInput.value = "";
+                document.getElementById("pin-right").style.display = "none";
+            }
+        })
+
+    </script>
+</body>
+</html>
